@@ -57,7 +57,7 @@ CSV.open('data/ACLS HEB Complete Title List.csv', 'w') do |output|
     row = CSV::Row.new(header,[])
     row['Title'] = input['Title']
     parse_isbns(input['ISBN(s)'], row) if input['ISBN(s)']
-    row['Pub Date'] = input['Pub Year'].tr('c','') + '-01-01' if input['Pub Year']
+    row['Pub Date'] = input['Pub Year'].tr('c','') if input['Pub Year']
     parse_identifiers(input['Identifier(s)'], row)
     input['Creator(s)'].to_s.match(/^(.*),/) {row['Author Last'] = $1}
     input['Creator(s)'].to_s.match(/^.+?,(.*);?/) {row['Author First'] = $1}
