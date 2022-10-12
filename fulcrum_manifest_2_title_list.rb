@@ -15,7 +15,7 @@ def parse_isbns(isbns_str, row)
     i.match(/^(\d+)/) { isbn = $1}
     if ISBN.valid?(isbn)
       isbn = ISBN.thirteen(isbn)
-      row["ISBN#{}"]=isbn
+      row["ISBN#{n}"]=isbn
     else
       next
     end
