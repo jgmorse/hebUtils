@@ -77,14 +77,20 @@ CSV.open('data/ACLS HEB New Title List.csv', 'w') do |output|
     parse_isbns(input['ISBN(s)'], row) if input['ISBN(s)']
     row['Pub Date'] = input['Pub Year'].tr('c','') if input['Pub Year']
     if input['Creator(s)']
-      input['Creator(s)'].to_s.match(/^(.*),/) {row['Author Last'] = $1}
-      input['Creator(s)'].to_s.match(/^.+?,(.*);?/) {row['Author First'] = $1}
+      input['Creator(s)'].gsub!(/\(.+?\)/,'')
+      input['Creator(s)'].gsub!(/;.*?$/,'')
+      input['Creator(s)'].to_s.match(/^(.+?),/) {row['Author Last'] = $1}
+      input['Creator(s)'].to_s.match(/^.+?,(.+?)$/) {row['Author First'] = $1}
     elsif input['Additional Creator(s)']
-      input['Additional Creator(s)'].to_s.match(/^(.*),/) {row['Author Last'] = $1}
-      input['Additional Creator(s)'].to_s.match(/^.+?,(.*);?/) {row['Author First'] = $1}
-    else
-      input['Contributor(s)'].to_s.match(/^(.*),/) {row['Author Last'] = $1}
-      input['Contributor(s)'].to_s.match(/^.+?,(.*);?/) {row['Author First'] = $1}
+      input['Additional Creator(s)'].gsub!(/\(.+?\)/,'')
+      input['Additional Creator(s)'].gsub!(/;.*?$/,'')
+      input['Additional Creator(s)'].to_s.match(/^(.+?),/) {row['Author Last'] = $1}
+      input['Additional Creator(s)'].to_s.match(/^.+?,(.+?)$/) {row['Author First'] = $1}
+    elsif input['Contributor(s)']
+      input['Contributor(s)'].gsub!(/\(.+?\)/,'')
+      input['Contributor(s)'].gsub!(/;.*?$/,'')
+      input['Contributor(s)'].to_s.match(/^(.+?),/) {row['Author Last'] = $1}
+      input['Contributor(s)'].to_s.match(/^.+?,(.+?)$/) {row['Author First'] = $1}
     end
     row['Pub City']=input['Pub Location']
     row['Publisher']=input['Publisher']
