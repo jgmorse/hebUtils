@@ -66,9 +66,10 @@ CSV.open('data/ACLS HEB New Title List.csv', 'w') do |output|
   hebid_filter = File.readlines(hebids_file)
   CSV.foreach(manifest, headers: true) do |input|
     next unless(input['Published?'].match(/TRUE/i))
-    next if(input['Tombstone?'])
     this_hebid = get_hebid(input['Identifier(s)'])
-    next unless hebid_filter.include?(this_hebid)
+    #include? not matching for some reason so using grep
+    next unless hebid_filter.grep(/#{this_hebid}/).length > 0
+    next if(input['Tombstone?'])
     row = CSV::Row.new(header,[])
     parse_identifiers(input['Identifier(s)'], row)
     row['Title'] = input['Title']
