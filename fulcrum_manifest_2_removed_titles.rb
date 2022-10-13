@@ -46,7 +46,6 @@ header = [
 "Pub Date",
 "HEB ID",
 "Subject Category",
-"URL"
 ]
 
 CSV.open('data/ACLS HEB Open Removed Titles List.csv', 'w') do |output|
