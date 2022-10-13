@@ -1,0 +1,19 @@
+HEB Utils:
+
+Scripts for generating updated HEB title lists for subscribing or interested librarians.
+
+Usage:
+fulcrum_manifest_2_OA_title_list.rb fulcrum_manifest
+fulcrum_manifest_2_removed_titles.rb fulcrum_manifest
+fulcrum_manifest_2_title_list.rb fulcrum_manifest
+
+These scripts all work from the standard Fulcrum manifest for heb, then parse and filter the results appropriately given the context.
+
+
+fulcrum_manifest_2_new_titles.rb fulcrum_manifest list_of_hebids_for_latest_round
+
+This script requires a second input param: a file listing full HEBIDs (HEBnnnnn.nnnn.nnn), one per line.
+
+
+TO DOs:
+These four scripts are mostly duplicated code, so refactor that.
