@@ -20,6 +20,7 @@ def parse_isbns(isbns_str, row)
       next
     end
     n+=1
+    return if n > 3
   }
 end
 
