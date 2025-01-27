@@ -27,7 +27,7 @@ end
 def parse_identifiers(ids_str, row)
   ids=ids_str.split('; ')
   ids.each { |i|
-    if i.match(/^heb_id: ?heb((\d\d\d\d\d)\.\d\d\d\d\.\d\d\d)/)
+    if i.match(/^heb_id: ?heb((\d\d\d\d\d)\.\d\d\d\d\.\d\d\d)/i)
       row['URL']="https://hdl.handle.net/2027/heb#{$1}"
       row['HEB ID']="HEB#{$1}"
       return
@@ -38,7 +38,7 @@ end
 def get_hebid(ids_str)
   ids=ids_str.split('; ')
   ids.each { |i|
-    if i.match(/^heb_id: ?heb((\d\d\d\d\d)\.\d\d\d\d\.\d\d\d)/)
+    if i.match(/^heb_id: ?heb((\d\d\d\d\d)\.\d\d\d\d\.\d\d\d)/i)
       return "HEB#{$1}"
     end
   }
@@ -69,7 +69,7 @@ CSV.open('data/ACLS HEB New Title List.csv', 'w') do |output|
     next unless(input['Published?'].match(/TRUE/i))
     this_hebid = get_hebid(input['Identifier(s)'])
     #include? not matching for some reason so using grep
-    next unless hebid_filter.grep(/#{this_hebid}/).length > 0
+    next unless hebid_filter.grep(/#{this_hebid}/i).length > 0
     next if(input['Tombstone?'])
     row = CSV::Row.new(header,[])
     parse_identifiers(input['Identifier(s)'], row)

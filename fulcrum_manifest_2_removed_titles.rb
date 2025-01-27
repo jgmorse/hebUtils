@@ -48,7 +48,7 @@ header = [
 "Subject Category",
 ]
 
-CSV.open('data/ACLS HEB Open Removed Titles List.csv', 'w') do |output|
+CSV.open('data/ACLS HEB Removed Titles List.csv', 'w') do |output|
   output << header
   CSV.foreach(ARGV.shift, headers: true) do |input|
     next unless(input['Published?'].match(/TRUE/i))
